@@ -1,4 +1,5 @@
 from src.common.enums import Passenger
+from src.common.constants import DEFAULT_DISCOUNT
 
 class Journey:
     def __init__(self):
@@ -23,7 +24,7 @@ class Pricing:
         self._charges[passenger_type] = charge
 
     def calculate_single_journey_cost(self, passenger_type) -> (int, int):
-        return self._charges[passenger_type], 0
+        return self._charges[passenger_type], DEFAULT_DISCOUNT
 
     def calculate_return_journey_cost(self, passenger_type) -> (int, int):
         cost = self._charges.get(passenger_type)

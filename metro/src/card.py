@@ -1,4 +1,5 @@
 from src.common.exceptions import InsufficientBalanceException
+from src.common.constants import MIN_RECHARGE_AMOUNT
 
 
 class MetroCard:
@@ -13,7 +14,7 @@ class MetroCard:
         self._balance -= charge
 
     def recharge(self, amount: int):
-        if amount < 0:
+        if amount < MIN_RECHARGE_AMOUNT:
             raise ValueError("Recharge amount must be a non-negative value.")
         self._balance += amount
 

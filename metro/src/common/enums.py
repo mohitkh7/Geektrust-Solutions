@@ -8,7 +8,12 @@ class Passenger(Enum):
     Kid = "KID"
 
 
-class Command:
+class Command(Enum):
     BALANCE = "BALANCE"
     CHECK_IN = "CHECK_IN"
     PRINT_SUMMARY = "PRINT_SUMMARY"
+
+
+class StationName(Enum):
+    AIRPORT = "AIRPORT"
+    CENTRAL = "CENTRAL"

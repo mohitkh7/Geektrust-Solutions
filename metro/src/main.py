@@ -1,37 +1,35 @@
 from src.billing import Billing, Journey, Pricing
 from src.card import MetroCard, CardGateway
 from src.station import Station, StationPassengerCount, StationCollection
-from src.common.enums import Passenger, Command
-
-RETURN_TRIP_DISCOUNT = 0.5  
-SERVICE_CHARGE_PERC = 0.02
+from src.common.enums import Passenger, Command, StationName
+from src.common.constants import *
 
 
 class MetroCardManager:
     def __init__(self):
         pricing = Pricing(RETURN_TRIP_DISCOUNT)
-        pricing.set_charge(Passenger.Adult, 200)
-        pricing.set_charge(Passenger.Senior_Citizen, 100)
-        pricing.set_charge(Passenger.Kid, 50)
+        pricing.set_charge(Passenger.Adult, CHARGE_ADULT)
+        pricing.set_charge(Passenger.Senior_Citizen, CHARGE_SENIOR_CITIZEN)
+        pricing.set_charge(Passenger.Kid, CHARGE_KID)
 
         biller = Billing(Journey(), pricing)
         card_gw = CardGateway(SERVICE_CHARGE_PERC)
         passenger_count = StationPassengerCount()
         collection = StationCollection()
 
-        self.central_station = Station("CENTRAL", biller, card_gw, StationPassengerCount(), StationCollection())
-        self.airport_station = Station("AIRPORT", biller, card_gw, StationPassengerCount(), StationCollection())
+        self.central_station = Station(StationName.CENTRAL.value, biller, card_gw, StationPassengerCount(), StationCollection())
+        self.airport_station = Station(StationName.AIRPORT.value, biller, card_gw, StationPassengerCount(), StationCollection())
         self.cards = {}
 
     def execute(self, instructions):
         for instruction in instructions:
             instruction = instruction.strip()
             args = instruction.split(" ")
-            if args[0] == Command.BALANCE:
+            if args[0] == Command.BALANCE.value:
                 self.create_card(*args[1:])
-            elif args[0] == Command.CHECK_IN:
+            elif args[0] == Command.CHECK_IN.value:
                 self.check_in(*args[1:])
-            elif args[0] == Command.PRINT_SUMMARY:
+            elif args[0] == Command.PRINT_SUMMARY.value:
                 self.print_summary()
             else:
                 raise ValueError(f"Unknown instruction found: {args[0]}")
@@ -43,9 +41,9 @@ class MetroCardManager:
     def check_in(self, card_number, passenger_type, origin_station):
         card = self.cards[card_number]
         passenger = self.get_passenger(passenger_type)
-        if origin_station == "CENTRAL":
+        if origin_station == StationName.CENTRAL.value:
             self.central_station.check_in(card, passenger)
-        elif origin_station == "AIRPORT":
+        elif origin_station == StationName.AIRPORT.value:
             self.airport_station.check_in(card, passenger)
         else:
             raise ValueError(f"Unknown origin station found: {origin_station}")
