@@ -5,7 +5,6 @@ name: Python application
 
 on:
   push:
-    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -37,4 +36,9 @@ jobs:
     - name: Test Geekacademy
       run: |
         cd geekacademy
+        python -m unittest
+
+    - name: Test Metro
+      run: |
+        cd metro
         python -m unittest
