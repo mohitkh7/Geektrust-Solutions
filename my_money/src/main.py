@@ -15,7 +15,7 @@ class MyMoneyManager:
             elif args[0] == Command.SIP.value:
                 self._portfolio.sip(*args[1:])
             elif args[0] == Command.CHANGE.value:
-                self._portfolio.change(*args[1: ])
+                self._portfolio.change(*args[1:])
             elif args[0] == Command.BALANCE.value:
                 result = self._portfolio.balance(*args[1:])
                 print(*result)

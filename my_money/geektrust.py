@@ -3,7 +3,6 @@ from src.main import MyMoneyManager
 
 
 def main():
-    
     """
     Sample code to read inputs from the file
     """
@@ -14,7 +13,7 @@ def main():
     f = open(file_path, 'r')
     lines = f.readlines()
     manager.execute(lines)
-    
-    
+
+
 if __name__ == "__main__":
     main()

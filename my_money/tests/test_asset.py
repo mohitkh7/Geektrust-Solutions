@@ -1,7 +1,6 @@
 import unittest
 from src.asset import Asset
 from src.history import History
-from src.sip import SIP
 from src.common.enums import Months
 from unittest.mock import Mock
 

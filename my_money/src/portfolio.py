@@ -35,7 +35,7 @@ class Portfolio:
             self.rebalance(month)
 
     def balance(self, month):
-        if type(month) == str:
+        if isinstance(month, str):
             month = Months[month]
         return (
             self._equity.get_amount(month),
