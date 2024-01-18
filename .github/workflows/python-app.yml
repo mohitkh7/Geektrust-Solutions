@@ -40,3 +40,8 @@ jobs:
       run: |
         cd metro
         python -m unittest
+
+    - name: Test MyMoney
+      run: |
+        cd my_money
+        python -m unittest
